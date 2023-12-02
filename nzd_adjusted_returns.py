@@ -1,3 +1,5 @@
+# https://www.investopedia.com/terms/forex/n/nzd-usd-new-zealand-dollar-us-dollar-currency-pair.asp
+
 from openbb_terminal.sdk import openbb
 import pandas as pd
 
@@ -21,11 +23,12 @@ df[['spy_cumulative_return','nzd_cumulative_return','fx_adj_close_cumulative_ret
 df[['spy_return','nzd_return','fx_adj_close_return']].dropna().hist(bins=100, sharex=True, figsize=(12,8))
 
 # calculate sharpe ratio
-nzd_sharpe = df['nzd_return'].mean() / df['nzd_return'].std()
+rf = 0.05 / 252
+nzd_sharpe = (df['nzd_return'].mean() - rf) / df['nzd_return'].std()
 nzd_sharpe
-spy_sharpe = df['spy_return'].mean() / df['spy_return'].std()
+spy_sharpe = (df['spy_return'].mean() - rf) / df['spy_return'].std()
 spy_sharpe
-fx_adj_sharpe = df['fx_adj_close_return'].mean() / df['fx_adj_close_return'].std()
+fx_adj_sharpe = (df['fx_adj_close_return'].mean() - rf) / df['fx_adj_close_return'].std()
 fx_adj_sharpe
 
 # correlation between spy and nzd returns
